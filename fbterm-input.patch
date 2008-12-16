@@ -1,0 +1,13 @@
+--- fbterm-1.2/src/input.cpp.old	2008-12-16 21:39:32.000000000 +0100
++++ fbterm-1.2/src/input.cpp	2008-12-16 21:40:36.000000000 +0100
+@@ -146,6 +146,10 @@ void TtyInput::readyRead(s8 *buf, u32 le
+ 
+ 	FbShell *shell = FbShellManager::instance()->activeShell();
+ 	u32 i, start = 0;
++	if (shell) {
++		shell->keyInput(buf, len);
++		return;
++	}
+ 	for (i = 0; i < len; i++) {
+ 		u32 orig = i;
+ 		u8 c = buf[i];
