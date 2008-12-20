@@ -1,18 +1,13 @@
 Summary:	Terminal emulator for framebuffer
 Summary(pl.UTF-8):	Emulator terminala dla framebuffera
 Name:		fbterm
-Version:	1.2
-Release:	1
+Version:	1.3
+Release:	0.1
 License:	GPL v2
 Group:		Applications/Graphics
 Source0:	http://fbterm.googlecode.com/files/%{name}-%{version}.tar.gz
-# Source0-md5:	92cc48ff42f6059722f72c62130ee97b
+# Source0-md5:	12f52f60390576866ce9f7696779050d
 URL:		http://code.google.com/p/fbterm/
-Patch0:		%{name}-header.patch
-Patch1:		%{name}-directcolor.patch
-Patch2:		%{name}-256_colors.patch
-Patch3:		%{name}-wheelmouse.patch
-Patch4:		%{name}-input.patch
 BuildRequires:	fontconfig-devel
 BuildRequires:	freetype-devel
 BuildRequires:	libstdc++-devel
@@ -37,11 +32,6 @@ Features include:
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
 
 %build
 %configure
