@@ -2,7 +2,7 @@ Summary:	Terminal emulator for framebuffer
 Summary(pl.UTF-8):	Emulator terminala dla framebuffera
 Name:		fbterm
 Version:	1.3
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		Applications/Graphics
 Source0:	http://fbterm.googlecode.com/files/%{name}-%{version}.tar.gz
@@ -44,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post -p /sbin/postshell
+-/sbin/setcap 'cap_sys_tty_config+ep' /usr/bin/fbterm
 
 %files
 %defattr(644,root,root,755)
