@@ -8,11 +8,11 @@ Group:		Applications/Graphics
 Source0:	http://fbterm.googlecode.com/files/%{name}-%{version}.tar.gz
 # Source0-md5:	58543d0e630bc9bfd7cda93b5e844564
 URL:		http://code.google.com/p/fbterm/
-BuildRequires:	ncurses
 BuildRequires:	fontconfig-devel
 BuildRequires:	freetype-devel
 BuildRequires:	gpm-devel
 BuildRequires:	libstdc++-devel
+BuildRequires:	ncurses
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
