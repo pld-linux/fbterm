@@ -1,17 +1,21 @@
 Summary:	Terminal emulator for framebuffer
 Summary(pl.UTF-8):	Emulator terminala dla framebuffera
 Name:		fbterm
-Version:	1.4
+Version:	1.5
 Release:	1
 License:	GPL v2
 Group:		Applications/Graphics
 Source0:	http://fbterm.googlecode.com/files/%{name}-%{version}.tar.gz
-# Source0-md5:	58543d0e630bc9bfd7cda93b5e844564
+# Source0-md5:	8f4eb318718aac9f16bf3bd4e401c936
+Patch0:		%{name}-install.patch
 URL:		http://code.google.com/p/fbterm/
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	fontconfig-devel
 BuildRequires:	freetype-devel
 BuildRequires:	gpm-devel
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtool
 BuildRequires:	ncurses
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -34,8 +38,14 @@ Features include:
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure
 %{__make}
 tic -o terminfo terminfo/fbterm
