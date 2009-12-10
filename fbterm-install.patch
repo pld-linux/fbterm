@@ -1,10 +1,19 @@
---- fbterm-1.5/src/Makefile.am.old	2009-04-26 20:45:39.000000000 +0200
-+++ fbterm-1.5/src/Makefile.am	2009-04-26 20:45:57.000000000 +0200
-@@ -8,15 +8,3 @@ EXTRA_fbterm_SOURCES = screen_render.cpp
+--- fbterm-1.6/src/Makefile.am.old	2009-12-09 21:19:26.000000000 +0100
++++ fbterm-1.6/src/Makefile.am	2009-12-09 21:19:40.000000000 +0100
+@@ -9,25 +9,3 @@
  
  fbterm_CXXFLAGS = -fno-exceptions -fno-rtti -Ilib @FT2_INC@ @FC_INC@
- fbterm_LDADD = lib/libshell.a @FT2_LIB@ @FC_LIB@ -lutil
+ fbterm_LDADD = lib/libshell.a @FT2_LIB@ @FC_LIB@ @X86_LIB@ -lutil
 -
+-if VESA
+-install-exec-hook:
+-	[[ "`id -u`" != "0" ]] && { \
+-		echo "run 'make install' as root!"; \
+-		exit 1; \
+-	} || { \
+-		chmod u+s $(DESTDIR)$(bindir)/fbterm$(EXEEXT); \
+-	}
+-else
 -install-exec-hook:
 -	KERV=`uname -r | sed 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\1 \* 10000 + \2 \* 100 + \3/'`; \
 -	[[ $$KERV -lt 20615 ]] && exit 0; \
@@ -12,7 +21,8 @@
 -		echo "run 'make install' as root!"; \
 -		exit 1; \
 -	} || { \
--		[[ $$KERV -ge 20627 ]] \
--		&& setcap 'cap_sys_tty_config+ep' $(DESTDIR)$(bindir)/fbterm$(EXEEXT) 2>/dev/null \
--		|| chmod u+s $(DESTDIR)$(bindir)/fbterm$(EXEEXT); \
+-		[[ $$KERV -ge 20627 ]] && \
+-		setcap 'cap_sys_tty_config+ep' $(DESTDIR)$(bindir)/fbterm$(EXEEXT) 2>/dev/null || \
+-		chmod u+s $(DESTDIR)$(bindir)/fbterm$(EXEEXT); \
 -	}
+-endif
