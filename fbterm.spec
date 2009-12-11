@@ -17,6 +17,7 @@ BuildRequires:	gpm-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	ncurses
+BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -61,11 +62,11 @@ install terminfo/f/fbterm $RPM_BUILD_ROOT%{_datadir}/terminfo/f
 rm -rf $RPM_BUILD_ROOT
 
 %post -p /sbin/postshell
--/sbin/setcap 'cap_sys_tty_config+ep' /usr/bin/fbterm
+-/sbin/setcap 'cap_sys_tty_config+ep' %{_bindir}/fbterm
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README 
+%doc AUTHORS ChangeLog NEWS README
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/terminfo/f/fbterm
 %{_mandir}/man1/*
