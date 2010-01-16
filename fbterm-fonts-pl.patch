@@ -1,0 +1,11 @@
+--- fbterm-1.6/src/font.cpp.old	2010-01-16 17:21:38.000000000 +0100
++++ fbterm-1.6/src/font.cpp	2010-01-16 17:21:58.000000000 +0100
+@@ -56,7 +56,7 @@ Font *Font::createInstance()
+ 	Config::instance()->getOption("font-size", pixel_size);
+ 	FcPatternAddDouble(pat, FC_PIXEL_SIZE, (double)pixel_size);
+ 
+-	FcPatternAddString(pat, FC_LANG, (FcChar8 *)"en");
++	FcPatternAddString(pat, FC_LANG, (FcChar8 *)"pl");
+ 
+ 	FcConfigSubstitute(NULL, pat, FcMatchPattern);
+ 	FcDefaultSubstitute(pat);
