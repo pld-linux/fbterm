@@ -1,57 +1,11 @@
---- fbterm-1.6/src/fbconfig.cpp.old	2010-01-16 18:38:19.000000000 +0100
-+++ fbterm-1.6/src/fbconfig.cpp	2010-01-16 18:40:26.000000000 +0100
-@@ -172,6 +172,8 @@ void Config::checkConfigFile(const s8 *n
- 		"# and using a fixed width font as the first is strongly recommended\n"
- 		"font-names=mono\n"
- 		"font-size=12\n"
-+		"# default language for fontconfig\n"
-+		"font-lang=en\n"
- 		"\n"
- 		"# force font width, usually for non-fixed width fonts\n"
- 		"# legal value format: n (fw_new = n), +n (fw_new = fw_old + n), -n (fw_new = fw_old - n)\n"
-@@ -223,6 +225,7 @@ bool Config::parseArgs(s32 argc, s8 **ar
- 		{ "verbose", no_argument, 0, 'v' },
- 		{ "font-names", required_argument, 0, 'n' },
- 		{ "font-size", required_argument, 0, 's' },
-+		{ "font-lang", required_argument, 0, 'l' },
- 		{ "color-foreground", required_argument, 0, 'f' },
- 		{ "color-background", required_argument, 0, 'b' },
- 		{ "text-encodings", required_argument, 0, 'e' },
-@@ -238,7 +241,7 @@ bool Config::parseArgs(s32 argc, s8 **ar
- 	};
- 
- 	s32 index;
--	while ((index = getopt_long(argc, argv, "Vvhn:s:f:b:e:r:i:", options, 0)) != -1) {
-+	while ((index = getopt_long(argc, argv, "Vvhn:s:l:f:b:e:r:i:", options, 0)) != -1) {
- 		switch (index) {
- 		case 'V':
- 			printf("FbTerm version " VERSION "\n");
-@@ -256,6 +259,7 @@ bool Config::parseArgs(s32 argc, s8 **ar
- 				"  -n, --font-names=TEXT           specify font family names\n"
- 				"  -s, --font-size=NUM             specify font pixel size\n"
- 				"      --font-width=NUM            force font width\n"
-+				"  -l, --font-lang=TEXT            default language used by fontconfig\n"
- 				"  -f, --color-foreground=NUM      specify foreground color\n"
- 				"  -b, --color-background=NUM      specify background color\n"
- 				"  -e, --text-encodings=TEXT       specify additional text encodings\n"
---- fbterm-1.6/src/font.cpp.old	2010-01-16 18:38:30.000000000 +0100
-+++ fbterm-1.6/src/font.cpp	2010-01-16 18:38:48.000000000 +0100
-@@ -48,7 +48,9 @@ Font *Font::createInstance()
- 	FcInit();
- 
- 	s8 buf[64];
-+	s8 lang[8];
- 	Config::instance()->getOption("font-names", buf, sizeof(buf));
-+	Config::instance()->getOption("font-lang", lang, sizeof(lang));
- 
- 	FcPattern *pat = FcNameParse((FcChar8 *)(*buf ? buf : "mono"));
- 
-@@ -56,7 +58,7 @@ Font *Font::createInstance()
+--- fbterm-1.6/src/font.cpp.old	2010-01-17 08:27:51.000000000 +0100
++++ fbterm-1.6/src/font.cpp	2010-01-17 08:28:03.000000000 +0100
+@@ -56,8 +56,6 @@ Font *Font::createInstance()
  	Config::instance()->getOption("font-size", pixel_size);
  	FcPatternAddDouble(pat, FC_PIXEL_SIZE, (double)pixel_size);
  
 -	FcPatternAddString(pat, FC_LANG, (FcChar8 *)"en");
-+	FcPatternAddString(pat, FC_LANG, (FcChar8 *)(*lang ? lang : "en"));
- 
+-
  	FcConfigSubstitute(NULL, pat, FcMatchPattern);
  	FcDefaultSubstitute(pat);
+ 
