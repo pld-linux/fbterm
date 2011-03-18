@@ -37,6 +37,22 @@ Features include:
 - copy/past selected text between windows with mouse when gpm server
   is running
 
+%description -l pl.UTF-8
+FbTerm jest szybkim emulatorem terminala działającym na linuksowym
+framebufferze. Jego cechy to:
+- prawie tak szybki jak terminal kernelowy, gdy akcelerowane
+  przewijanie jest włączone
+- wybór czcionki przez fontconfig i jej wyświetlanie przy użyciu
+  freetype2, tak jak w aplikacjach Qt/Gtk+
+- dynamiczne tworzenie/kasowanie do 10 okien z domyślną powłoką
+- zapamiętywanie historii przewijania dla każdego okna
+- autodetekcja kodowania tekstu, wsparcie dla znaków podwójnej
+  szerokości jak chińskie czy japońskie, itd.
+- przełączanie pomiędzy konfigurowalnymi dodatkowymi kodowaniami
+  tekstu w locie przy użyciu klawiszy skrótu
+- kopiowanie/wstawianie zaznaczonego tekstu pomiędzy oknami przy
+  użyciu myszy, gdy serwer gpm jest uruchomiony
+
 %prep
 %setup -q
 %patch0 -p1
