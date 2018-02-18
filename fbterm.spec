@@ -2,12 +2,13 @@ Summary:	Terminal emulator for framebuffer
 Summary(pl.UTF-8):	Emulator terminala dla framebuffera
 Name:		fbterm
 Version:	1.7
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/Graphics
 Source0:	http://fbterm.googlecode.com/files/%{name}-%{version}.tar.gz
 # Source0-md5:	e882c4cb38e7e46ce4378203509c552f
 Patch0:		%{name}-font-lang.patch
+Patch1:		0001-Fix-build-with-gcc-6.patch
 URL:		http://code.google.com/p/fbterm/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -56,6 +57,7 @@ framebufferze. Jego cechy to:
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -65,14 +67,11 @@ framebufferze. Jego cechy to:
 %{__automake}
 %configure
 %{__make}
-tic -o terminfo terminfo/fbterm
 
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_datadir}/terminfo/f
-install terminfo/f/fbterm $RPM_BUILD_ROOT%{_datadir}/terminfo/f
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -84,5 +83,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
 %attr(755,root,root) %{_bindir}/*
-%{_datadir}/terminfo/f/fbterm
 %{_mandir}/man1/*
